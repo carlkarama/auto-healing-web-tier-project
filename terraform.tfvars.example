@@ -1,0 +1,3 @@
+aws_region  = "ap-southeast-2"
+project_name = "auto-healing-web-tier"
+environment  = "dev"
