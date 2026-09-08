@@ -17,6 +17,7 @@ module "web_tier" {
 
   project_name      = var.project_name
   environment       = var.environment
+  instance_type     = var.instance_type
   vpc_id            = module.network.vpc_id
   public_subnet_ids = module.network.public_subnet_ids
 }
