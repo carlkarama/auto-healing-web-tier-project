@@ -155,3 +155,49 @@ resource "aws_launch_template" "web" {
     Name = "${var.project_name}-${var.environment}-web-lt"
   }
 }
+
+resource "aws_autoscaling_group" "web" {
+  name = "${var.project_name}-${var.environment}-web-asg"
+
+  min_size         = var.min_size
+  desired_capacity = var.desired_capacity
+  max_size         = var.max_size
+
+  vpc_zone_identifier = var.public_subnet_ids
+  target_group_arns   = [aws_lb_target_group.web.arn]
+
+  health_check_type         = "ELB"
+  health_check_grace_period = 120
+  default_instance_warmup   = 120
+
+  launch_template {
+    id      = aws_launch_template.web.id
+    version = aws_launch_template.web.latest_version
+  }
+
+  instance_refresh {
+    strategy = "Rolling"
+
+    preferences {
+      min_healthy_percentage = 100
+      max_healthy_percentage = 150
+      instance_warmup        = 120
+    }
+  }
+
+  tag {
+    key                 = "Name"
+    value               = "${var.project_name}-${var.environment}-web"
+    propagate_at_launch = true
+  }
+
+  lifecycle {
+    precondition {
+      condition = (
+        var.min_size <= var.desired_capacity &&
+        var.desired_capacity <= var.max_size
+      )
+      error_message = "Capacity must satisfy min_size <= desired_capacity <= max_size."
+    }
+  }
+}

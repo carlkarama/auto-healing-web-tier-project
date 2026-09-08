@@ -38,3 +38,21 @@ variable "instance_type" {
   type        = string
   default     = "t3.micro"
 }
+
+variable "min_size" {
+  description = "Minimum number of web instances"
+  type        = number
+  default     = 2
+}
+
+variable "desired_capacity" {
+  description = "Desired number of web instances"
+  type        = number
+  default     = 2
+}
+
+variable "max_size" {
+  description = "Maximum number of web instances"
+  type        = number
+  default     = 3
+}
