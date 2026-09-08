@@ -7,3 +7,8 @@ output "public_subnet_ids" {
   description = "IDs of the public subnets"
   value       = module.network.public_subnet_ids
 }
+
+output "alb_url" {
+  description = "URL of the Application Load Balancer"
+  value       = "http://${module.web_tier.alb_dns_name}"
+}
