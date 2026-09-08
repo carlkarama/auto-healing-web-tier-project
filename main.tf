@@ -17,6 +17,10 @@ module "web_tier" {
 
   project_name      = var.project_name
   environment       = var.environment
+  instance_type     = var.instance_type
+  min_size          = var.min_size
+  desired_capacity  = var.desired_capacity
+  max_size          = var.max_size
   vpc_id            = module.network.vpc_id
   public_subnet_ids = module.network.public_subnet_ids
 }

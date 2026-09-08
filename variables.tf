@@ -32,3 +32,27 @@ variable "public_subnet_cidrs" {
   type        = list(string)
   default     = ["10.0.1.0/24", "10.0.2.0/24"]
 }
+
+variable "instance_type" {
+  description = "EC2 instance type used by the web tier"
+  type        = string
+  default     = "t3.micro"
+}
+
+variable "min_size" {
+  description = "Minimum number of web instances"
+  type        = number
+  default     = 2
+}
+
+variable "desired_capacity" {
+  description = "Desired number of web instances"
+  type        = number
+  default     = 2
+}
+
+variable "max_size" {
+  description = "Maximum number of web instances"
+  type        = number
+  default     = 3
+}

@@ -22,3 +22,23 @@ variable "public_subnet_ids" {
     error_message = "At least two public subnet IDs must be provided."
   }
 }
+
+variable "instance_type" {
+  description = "EC2 instance type used by the web tier"
+  type        = string
+}
+
+variable "min_size" {
+  description = "Minimum number of web instances"
+  type        = number
+}
+
+variable "desired_capacity" {
+  description = "Desired number of web instances"
+  type        = number
+}
+
+variable "max_size" {
+  description = "Maximum number of web instances"
+  type        = number
+}
