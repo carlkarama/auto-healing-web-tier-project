@@ -1,16 +1,15 @@
-# Terraform
+# Local Terraform data and binary plans
 .terraform/
 *.tfstate
 *.tfstate.*
 *.tfplan
+tfplan
 crash.log
 crash.*.log
 terraform.tfvars
 *.auto.tfvars
-
-# Terraform variable files — may contain secrets
 *.tfvars
 *.tfvars.json
-
-# macOS
+# Local evidence can include account identifiers.
+artifacts/
 .DS_Store

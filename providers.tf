@@ -1,6 +1,5 @@
 provider "aws" {
   region = var.aws_region
-
   default_tags {
     tags = {
       Project     = var.project_name
@@ -8,4 +7,7 @@ provider "aws" {
       ManagedBy   = "Terraform"
     }
   }
+}
+provider "awscc" {
+  region = var.aws_region
 }

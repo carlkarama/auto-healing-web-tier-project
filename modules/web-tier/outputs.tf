@@ -1,24 +1,16 @@
-output "alb_dns_name" {
-  description = "DNS name of the Application Load Balancer"
-  value       = aws_lb.web.dns_name
+output "website_url" {
+  description = "CloudFront HTTPS endpoint."
+  value       = "https://${aws_cloudfront_distribution.web.domain_name}"
 }
-
-output "target_group_arn" {
-  description = "ARN of the web target group"
-  value       = aws_lb_target_group.web.arn
+output "autoscaling_group_names" {
+  description = "Replacement group names keyed by slot."
+  value       = { for slot, group in aws_autoscaling_group.web : slot => group.name }
 }
-
-output "web_security_group_id" {
-  description = "ID of the security group assigned to web instances"
-  value       = aws_security_group.web.id
+output "origin_dns_names" {
+  description = "Stable public IPv6 origin hostnames."
+  value       = { for slot, eni in awscc_ec2_network_interface.web : slot => eni.public_ip_dns_name_options.public_ipv_6_dns_name }
 }
-
-output "launch_template_id" {
-  description = "ID of the EC2 Launch Template"
-  value       = aws_launch_template.web.id
-}
-
-output "autoscaling_group_name" {
-  description = "Name of the web Auto Scaling Group"
-  value       = aws_autoscaling_group.web.name
+output "network_interface_ids" {
+  description = "Persistent ENIs keyed by slot."
+  value       = { for slot, eni in awscc_ec2_network_interface.web : slot => eni.id }
 }

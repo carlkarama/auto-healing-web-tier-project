@@ -1,29 +1,28 @@
 variable "project_name" {
-  description = "Name used when naming network resources"
+  description = "Project name prefix."
   type        = string
 }
-
 variable "environment" {
-  description = "Deployment environment"
+  description = "Environment name."
   type        = string
 }
-
 variable "vpc_cidr" {
-  description = "CIDR block assigned to the VPC"
+  description = "VPC private IPv4 range."
   type        = string
 }
-
 variable "public_subnet_cidrs" {
-  description = "CIDR blocks assigned to the public subnets"
+  description = "Two private IPv4 ranges for dual-stack subnets."
   type        = list(string)
-
   validation {
-    condition     = length(var.public_subnet_cidrs) >= 2
-    error_message = "At least two public subnet CIDR blocks must be provided."
+    condition     = length(var.public_subnet_cidrs) == 2
+    error_message = "Two subnet CIDRs are required."
   }
 }
-
 variable "availability_zones" {
-  description = "Availability Zones used by the public subnets"
+  description = "Two distinct AZs."
   type        = list(string)
+  validation {
+    condition     = length(distinct(var.availability_zones)) == 2
+    error_message = "Two distinct Availability Zones are required."
+  }
 }
