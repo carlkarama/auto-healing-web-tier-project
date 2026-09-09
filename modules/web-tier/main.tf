@@ -58,7 +58,9 @@ resource "aws_launch_template" "web" {
   description   = "Replacement VM for stable web slot ${each.key}"
   image_id      = var.ami_id
   instance_type = "t4g.nano"
-  user_data     = filebase64("${path.module}/user-data.sh")
+  user_data = base64encode(templatefile("${path.module}/user-data.sh", {
+    container_image = var.container_image
+  }))
   network_interfaces {
     device_index          = 0
     network_interface_id  = awscc_ec2_network_interface.web[each.key].id

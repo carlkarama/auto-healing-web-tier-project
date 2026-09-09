@@ -1,0 +1,6 @@
+# Only the NGINX configuration is needed in the image build context.
+**
+!Dockerfile
+!.dockerignore
+!container/
+!container/default.conf.template

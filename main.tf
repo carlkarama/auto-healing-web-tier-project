@@ -14,10 +14,11 @@ module "network" {
   availability_zones  = slice(data.aws_availability_zones.available.names, 0, 2)
 }
 module "web_tier" {
-  source       = "./modules/web-tier"
-  project_name = var.project_name
-  environment  = var.environment
-  ami_id       = var.ami_id
-  vpc_id       = module.network.vpc_id
-  subnets      = module.network.subnets
+  source          = "./modules/web-tier"
+  project_name    = var.project_name
+  environment     = var.environment
+  ami_id          = var.ami_id
+  container_image = var.container_image
+  vpc_id          = module.network.vpc_id
+  subnets         = module.network.subnets
 }
