@@ -6,6 +6,10 @@ variable "aws_region" {
     condition     = var.aws_region == "us-east-1"
     error_message = "This costed configuration and pinned AMI target us-east-1."
   }
+  validation {
+    condition     = var.aws_region != "" && terraform.workspace == "budget-constraint"
+    error_message = "Use the isolated budget workspace: terraform workspace select -or-create budget-constraint. The default workspace may contain the previous Sydney deployment."
+  }
 }
 variable "project_name" {
   description = "Short project prefix for names and tags."
