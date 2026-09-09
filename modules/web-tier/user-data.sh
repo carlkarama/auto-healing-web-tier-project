@@ -50,6 +50,8 @@ docker run -d --name web-tier \
 
 for attempt in $(seq 1 30); do
   if curl --fail --silent --max-time 3 http://127.0.0.1:80/ >/dev/null; then
+    docker inspect --format 'CONTAINER_READY image={{.Config.Image}} running={{.State.Running}} network={{.HostConfig.NetworkMode}} restart={{.HostConfig.RestartPolicy.Name}}' web-tier
+    docker exec web-tier nginx -v
     exit 0
   fi
   sleep 2
