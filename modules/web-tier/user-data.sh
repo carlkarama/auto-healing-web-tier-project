@@ -1,5 +1,17 @@
 #!/bin/bash
-set -euxo pipefail
+set -euo pipefail
+
+IMAGE='${container_image}'
+
+retry() {
+  for attempt in 1 2 3 4 5; do
+    if "$@"; then
+      return 0
+    fi
+    sleep 10
+  done
+  return 1
+}
 
 # t4g.nano has 512 MiB RAM: create swap before package installation.
 if [ ! -f /swapfile ]; then
@@ -12,16 +24,9 @@ if ! grep -q '^/swapfile ' /etc/fstab; then
   echo '/swapfile none swap sw 0 0' >> /etc/fstab
 fi
 
-# AL2023 repositories use S3 dual-stack endpoints reachable over IPv6.
-for attempt in 1 2 3 4 5; do
-  if dnf install -y nginx; then
-    break
-  fi
-  if [ "$attempt" -eq 5 ]; then
-    exit 1
-  fi
-  sleep 10
-done
+# AL2023 repositories and the public image registry are reachable over IPv6.
+retry dnf install -y docker
+systemctl enable --now docker
 
 TOKEN=$(curl --fail --silent --show-error --max-time 10 -X PUT \
   -H 'X-aws-ec2-metadata-token-ttl-seconds: 60' \
@@ -30,36 +35,26 @@ INSTANCE_ID=$(curl --fail --silent --show-error --max-time 10 \
   -H "X-aws-ec2-metadata-token: $TOKEN" \
   http://169.254.169.254/latest/meta-data/instance-id)
 
-cat > /etc/nginx/nginx.conf <<NGINX
-user nginx;
-worker_processes auto;
-error_log /var/log/nginx/error.log warn;
-pid /run/nginx.pid;
-events { worker_connections 256; }
-http {
-    include /etc/nginx/mime.types;
-    default_type application/octet-stream;
-    access_log off;
-    sendfile on;
-    server {
-        listen 80 default_server;
-        listen [::]:80 default_server;
-        server_name _;
-        root /usr/share/nginx/html;
-        index index.html;
-        add_header X-Web-Instance "$INSTANCE_ID" always;
-        add_header Cache-Control "no-store" always;
-    }
-}
-NGINX
+# Pull anonymously: no registry credentials or extra instance IAM role are needed.
+retry docker pull "$IMAGE"
+docker rm -f web-tier 2>/dev/null || true
 
-mkdir -p /etc/systemd/system/nginx.service.d
-cat > /etc/systemd/system/nginx.service.d/restart.conf <<'SERVICE'
-[Service]
-Restart=on-failure
-RestartSec=2
-SERVICE
+# Host networking exposes NGINX's IPv6 listener without a Docker bridge/NAT setup.
+docker run -d --name web-tier \
+  --network host \
+  --restart unless-stopped \
+  --memory 64m --memory-swap 64m --pids-limit 64 \
+  --log-driver local --log-opt max-size=5m --log-opt max-file=2 \
+  --env WEB_INSTANCE_ID="$INSTANCE_ID" \
+  "$IMAGE"
 
-nginx -t
-systemctl daemon-reload
-systemctl enable --now nginx
+for attempt in $(seq 1 30); do
+  if curl --fail --silent --max-time 3 http://127.0.0.1:80/ >/dev/null; then
+    docker inspect --format 'CONTAINER_READY image={{.Config.Image}} running={{.State.Running}} network={{.HostConfig.NetworkMode}} restart={{.HostConfig.RestartPolicy.Name}}' web-tier
+    docker exec web-tier nginx -v
+    exit 0
+  fi
+  sleep 2
+done
+docker logs web-tier
+exit 1

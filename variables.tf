@@ -38,6 +38,15 @@ variable "ami_id" {
     error_message = "Provide an ARM64 AMI ID in us-east-1."
   }
 }
+variable "container_image" {
+  description = "Public ARM64 NGINX image pinned by digest, using ECR Public's dual-stack endpoint."
+  type        = string
+  default     = "ecr-public.aws.com/n0l2m0r6/auto-healing-web-tier@sha256:bb72fe04472b22fb7e4f8026aded48d9e5a80b4e73e488626032b3fec0181a4b"
+  validation {
+    condition     = can(regex("^ecr-public\\.aws\\.com/[a-z0-9][a-z0-9./_-]*@sha256:[0-9a-f]{64}$", var.container_image))
+    error_message = "Use an ecr-public.aws.com image URL pinned with @sha256:<64 hex characters>."
+  }
+}
 variable "vpc_cidr" {
   description = "Private IPv4 range. Internet connectivity uses IPv6."
   type        = string
