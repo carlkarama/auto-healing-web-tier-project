@@ -1,5 +1,6 @@
 # Local Terraform data and binary plans
 .terraform/
+terraform.tfstate.d/
 *.tfstate
 *.tfstate.*
 *.tfplan
