@@ -1,0 +1,845 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # module.network.aws_internet_gateway.main will be created
+  + resource "aws_internet_gateway" "main" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + owner_id = (known after apply)
+      + region   = "us-east-1"
+      + tags     = {
+          + "Name" = "auto-healing-web-tier-dev-igw"
+        }
+      + tags_all = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "Terraform"
+          + "Name"        = "auto-healing-web-tier-dev-igw"
+          + "Project"     = "auto-healing-web-tier"
+        }
+      + vpc_id   = (known after apply)
+    }
+
+  # module.network.aws_route.internet_ipv6 will be created
+  + resource "aws_route" "internet_ipv6" {
+      + destination_ipv6_cidr_block = "::/0"
+      + gateway_id                  = (known after apply)
+      + id                          = (known after apply)
+      + instance_id                 = (known after apply)
+      + instance_owner_id           = (known after apply)
+      + network_interface_id        = (known after apply)
+      + origin                      = (known after apply)
+      + region                      = "us-east-1"
+      + route_table_id              = (known after apply)
+      + state                       = (known after apply)
+    }
+
+  # module.network.aws_route_table.public will be created
+  + resource "aws_route_table" "public" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + region           = "us-east-1"
+      + route            = (known after apply)
+      + tags             = {
+          + "Name" = "auto-healing-web-tier-dev-ipv6-rt"
+        }
+      + tags_all         = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "Terraform"
+          + "Name"        = "auto-healing-web-tier-dev-ipv6-rt"
+          + "Project"     = "auto-healing-web-tier"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # module.network.aws_route_table_association.public[0] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + region         = "us-east-1"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.network.aws_route_table_association.public[1] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + region         = "us-east-1"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.network.aws_subnet.public[0] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = true
+      + availability_zone                              = "us-east-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.1.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block                                = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-east-1"
+      + tags                                           = {
+          + "Name" = "auto-healing-web-tier-dev-web-1"
+        }
+      + tags_all                                       = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "Terraform"
+          + "Name"        = "auto-healing-web-tier-dev-web-1"
+          + "Project"     = "auto-healing-web-tier"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # module.network.aws_subnet.public[1] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = true
+      + availability_zone                              = "us-east-1b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.2.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block                                = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-east-1"
+      + tags                                           = {
+          + "Name" = "auto-healing-web-tier-dev-web-2"
+        }
+      + tags_all                                       = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "Terraform"
+          + "Name"        = "auto-healing-web-tier-dev-web-2"
+          + "Project"     = "auto-healing-web-tier"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # module.network.aws_vpc.main will be created
+  + resource "aws_vpc" "main" {
+      + arn                                  = (known after apply)
+      + assign_generated_ipv6_cidr_block     = true
+      + cidr_block                           = "10.0.0.0/16"
+      + default_network_acl_id               = (known after apply)
+      + default_route_table_id               = (known after apply)
+      + default_security_group_id            = (known after apply)
+      + dhcp_options_id                      = (known after apply)
+      + enable_dns_hostnames                 = true
+      + enable_dns_support                   = true
+      + enable_network_address_usage_metrics = (known after apply)
+      + id                                   = (known after apply)
+      + instance_tenancy                     = "default"
+      + ipv6_association_id                  = (known after apply)
+      + ipv6_cidr_block                      = (known after apply)
+      + ipv6_cidr_block_network_border_group = (known after apply)
+      + main_route_table_id                  = (known after apply)
+      + owner_id                             = (known after apply)
+      + region                               = "us-east-1"
+      + tags                                 = {
+          + "Name" = "auto-healing-web-tier-dev-vpc"
+        }
+      + tags_all                             = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "Terraform"
+          + "Name"        = "auto-healing-web-tier-dev-vpc"
+          + "Project"     = "auto-healing-web-tier"
+        }
+    }
+
+  # module.web_tier.aws_autoscaling_group.web["a"] will be created
+  + resource "aws_autoscaling_group" "web" {
+      + arn                              = (known after apply)
+      + availability_zones               = [
+          + "us-east-1a",
+        ]
+      + default_cooldown                 = (known after apply)
+      + desired_capacity                 = 1
+      + force_delete                     = false
+      + force_delete_warm_pool           = false
+      + health_check_grace_period        = 300
+      + health_check_type                = "EC2"
+      + id                               = (known after apply)
+      + ignore_failed_scaling_activities = false
+      + load_balancers                   = (known after apply)
+      + max_size                         = 1
+      + metrics_granularity              = "1Minute"
+      + min_size                         = 1
+      + name                             = "auto-healing-web-tier-dev-web-a-asg"
+      + name_prefix                      = (known after apply)
+      + predicted_capacity               = (known after apply)
+      + protect_from_scale_in            = false
+      + region                           = "us-east-1"
+      + service_linked_role_arn          = (known after apply)
+      + target_group_arns                = (known after apply)
+      + vpc_zone_identifier              = (known after apply)
+      + wait_for_capacity_timeout        = "10m"
+      + warm_pool_size                   = (known after apply)
+
+      + availability_zone_distribution (known after apply)
+
+      + capacity_reservation_specification (known after apply)
+
+      + instance_lifecycle_policy (known after apply)
+
+      + instance_maintenance_policy {
+          + max_healthy_percentage = 100
+          + min_healthy_percentage = 0
+        }
+
+      + launch_template {
+          + id      = (known after apply)
+          + name    = (known after apply)
+          + version = (known after apply)
+        }
+
+      + mixed_instances_policy (known after apply)
+
+      + tag {
+          + key                 = "Environment"
+          + propagate_at_launch = true
+          + value               = "dev"
+        }
+      + tag {
+          + key                 = "ManagedBy"
+          + propagate_at_launch = true
+          + value               = "Terraform"
+        }
+      + tag {
+          + key                 = "Name"
+          + propagate_at_launch = true
+          + value               = "auto-healing-web-tier-dev-web-a"
+        }
+      + tag {
+          + key                 = "Project"
+          + propagate_at_launch = true
+          + value               = "auto-healing-web-tier"
+        }
+
+      + traffic_source (known after apply)
+    }
+
+  # module.web_tier.aws_autoscaling_group.web["b"] will be created
+  + resource "aws_autoscaling_group" "web" {
+      + arn                              = (known after apply)
+      + availability_zones               = [
+          + "us-east-1b",
+        ]
+      + default_cooldown                 = (known after apply)
+      + desired_capacity                 = 1
+      + force_delete                     = false
+      + force_delete_warm_pool           = false
+      + health_check_grace_period        = 300
+      + health_check_type                = "EC2"
+      + id                               = (known after apply)
+      + ignore_failed_scaling_activities = false
+      + load_balancers                   = (known after apply)
+      + max_size                         = 1
+      + metrics_granularity              = "1Minute"
+      + min_size                         = 1
+      + name                             = "auto-healing-web-tier-dev-web-b-asg"
+      + name_prefix                      = (known after apply)
+      + predicted_capacity               = (known after apply)
+      + protect_from_scale_in            = false
+      + region                           = "us-east-1"
+      + service_linked_role_arn          = (known after apply)
+      + target_group_arns                = (known after apply)
+      + vpc_zone_identifier              = (known after apply)
+      + wait_for_capacity_timeout        = "10m"
+      + warm_pool_size                   = (known after apply)
+
+      + availability_zone_distribution (known after apply)
+
+      + capacity_reservation_specification (known after apply)
+
+      + instance_lifecycle_policy (known after apply)
+
+      + instance_maintenance_policy {
+          + max_healthy_percentage = 100
+          + min_healthy_percentage = 0
+        }
+
+      + launch_template {
+          + id      = (known after apply)
+          + name    = (known after apply)
+          + version = (known after apply)
+        }
+
+      + mixed_instances_policy (known after apply)
+
+      + tag {
+          + key                 = "Environment"
+          + propagate_at_launch = true
+          + value               = "dev"
+        }
+      + tag {
+          + key                 = "ManagedBy"
+          + propagate_at_launch = true
+          + value               = "Terraform"
+        }
+      + tag {
+          + key                 = "Name"
+          + propagate_at_launch = true
+          + value               = "auto-healing-web-tier-dev-web-b"
+        }
+      + tag {
+          + key                 = "Project"
+          + propagate_at_launch = true
+          + value               = "auto-healing-web-tier"
+        }
+
+      + traffic_source (known after apply)
+    }
+
+  # module.web_tier.aws_cloudfront_distribution.web will be created
+  + resource "aws_cloudfront_distribution" "web" {
+      + arn                             = (known after apply)
+      + caller_reference                = (known after apply)
+      + comment                         = "auto-healing-web-tier-dev two-VM web tier"
+      + continuous_deployment_policy_id = (known after apply)
+      + domain_name                     = (known after apply)
+      + enabled                         = true
+      + etag                            = (known after apply)
+      + hosted_zone_id                  = (known after apply)
+      + http_version                    = "http2"
+      + id                              = (known after apply)
+      + in_progress_validation_batches  = (known after apply)
+      + is_ipv6_enabled                 = true
+      + last_modified_time              = (known after apply)
+      + logging_v1_enabled              = (known after apply)
+      + price_class                     = "PriceClass_All"
+      + retain_on_delete                = false
+      + staging                         = false
+      + status                          = (known after apply)
+      + tags                            = {
+          + "Name" = "auto-healing-web-tier-dev-edge"
+        }
+      + tags_all                        = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "Terraform"
+          + "Name"        = "auto-healing-web-tier-dev-edge"
+          + "Project"     = "auto-healing-web-tier"
+        }
+      + trusted_key_groups              = (known after apply)
+      + trusted_signers                 = (known after apply)
+      + wait_for_deployment             = true
+
+      + custom_error_response {
+          + error_caching_min_ttl = 0
+          + error_code            = 500
+            # (1 unchanged attribute hidden)
+        }
+      + custom_error_response {
+          + error_caching_min_ttl = 0
+          + error_code            = 502
+            # (1 unchanged attribute hidden)
+        }
+      + custom_error_response {
+          + error_caching_min_ttl = 0
+          + error_code            = 503
+            # (1 unchanged attribute hidden)
+        }
+      + custom_error_response {
+          + error_caching_min_ttl = 0
+          + error_code            = 504
+            # (1 unchanged attribute hidden)
+        }
+
+      + default_cache_behavior {
+          + allowed_methods        = [
+              + "GET",
+              + "HEAD",
+              + "OPTIONS",
+            ]
+          + cache_policy_id        = "4135ea2d-6df8-44a3-9df3-4b5a84be39ad"
+          + cached_methods         = [
+              + "GET",
+              + "HEAD",
+            ]
+          + compress               = true
+          + default_ttl            = (known after apply)
+          + max_ttl                = (known after apply)
+          + min_ttl                = 0
+          + target_origin_id       = "web-origins"
+          + trusted_key_groups     = (known after apply)
+          + trusted_signers        = (known after apply)
+          + viewer_protocol_policy = "redirect-to-https"
+
+          + function_association {
+              + event_type   = "viewer-request"
+              + function_arn = (known after apply)
+            }
+
+          + grpc_config (known after apply)
+        }
+
+      + origin {
+          + connection_attempts         = 1
+          + connection_timeout          = 2
+          + domain_name                 = (known after apply)
+          + origin_id                   = "web-a"
+          + response_completion_timeout = (known after apply)
+            # (2 unchanged attributes hidden)
+
+          + custom_origin_config {
+              + http_port                = 80
+              + https_port               = 443
+              + ip_address_type          = "ipv6"
+              + origin_keepalive_timeout = 5
+              + origin_protocol_policy   = "http-only"
+              + origin_read_timeout      = 3
+              + origin_ssl_protocols     = [
+                  + "TLSv1.2",
+                ]
+            }
+        }
+      + origin {
+          + connection_attempts         = 1
+          + connection_timeout          = 2
+          + domain_name                 = (known after apply)
+          + origin_id                   = "web-b"
+          + response_completion_timeout = (known after apply)
+            # (2 unchanged attributes hidden)
+
+          + custom_origin_config {
+              + http_port                = 80
+              + https_port               = 443
+              + ip_address_type          = "ipv6"
+              + origin_keepalive_timeout = 5
+              + origin_protocol_policy   = "http-only"
+              + origin_read_timeout      = 3
+              + origin_ssl_protocols     = [
+                  + "TLSv1.2",
+                ]
+            }
+        }
+
+      + origin_group {
+          + origin_id = "web-origins"
+
+          + failover_criteria {
+              + status_codes = [
+                  + 500,
+                  + 502,
+                  + 503,
+                  + 504,
+                ]
+            }
+
+          + member {
+              + origin_id = "web-a"
+            }
+          + member {
+              + origin_id = "web-b"
+            }
+        }
+
+      + restrictions {
+          + geo_restriction {
+              + locations        = (known after apply)
+              + restriction_type = "none"
+            }
+        }
+
+      + viewer_certificate {
+          + cloudfront_default_certificate = true
+          + minimum_protocol_version       = "TLSv1"
+        }
+    }
+
+  # module.web_tier.aws_cloudfront_function.balance will be created
+  + resource "aws_cloudfront_function" "balance" {
+      + arn             = (known after apply)
+      + code            = <<-EOT
+            import cf from "cloudfront";
+
+            function handler(event) {
+                // Reverse the preferred origin for approximately half of requests.
+                // CloudFront retries the other VM if the preferred one is unavailable.
+                cf.createRequestOriginGroup({
+                    originIds: Math.random() < 0.5
+                        ? ["web-a", "web-b"]
+                        : ["web-b", "web-a"],
+                    failoverCriteria: {
+                        statusCodes: [500, 502, 503, 504]
+                    }
+                });
+                return event.request;
+            }
+        EOT
+      + comment         = "Balance static requests and retry the other VM on failure"
+      + etag            = (known after apply)
+      + id              = (known after apply)
+      + live_stage_etag = (known after apply)
+      + name            = "auto-healing-web-tier-dev-balance"
+      + publish         = true
+      + runtime         = "cloudfront-js-2.0"
+      + status          = (known after apply)
+      + tags_all        = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "Terraform"
+          + "Project"     = "auto-healing-web-tier"
+        }
+    }
+
+  # module.web_tier.aws_launch_template.web["a"] will be created
+  + resource "aws_launch_template" "web" {
+      + arn             = (known after apply)
+      + default_version = (known after apply)
+      + description     = "Replacement VM for stable web slot a"
+      + id              = (known after apply)
+      + image_id        = "ami-00d2032fba650e58b"
+      + instance_type   = "t4g.nano"
+      + latest_version  = (known after apply)
+      + name            = (known after apply)
+      + name_prefix     = "auto-healing-web-tier-dev-a-"
+      + region          = "us-east-1"
+      + tags            = {
+          + "Name" = "auto-healing-web-tier-dev-web-a-lt"
+        }
+      + tags_all        = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "Terraform"
+          + "Name"        = "auto-healing-web-tier-dev-web-a-lt"
+          + "Project"     = "auto-healing-web-tier"
+        }
+      + user_data       = "IyEvYmluL2Jhc2gKc2V0IC1ldXhvIHBpcGVmYWlsCgojIHQ0Zy5uYW5vIGhhcyA1MTIgTWlCIFJBTTogY3JlYXRlIHN3YXAgYmVmb3JlIHBhY2thZ2UgaW5zdGFsbGF0aW9uLgppZiBbICEgLWYgL3N3YXBmaWxlIF07IHRoZW4KICBmYWxsb2NhdGUgLWwgMUcgL3N3YXBmaWxlCiAgY2htb2QgNjAwIC9zd2FwZmlsZQogIG1rc3dhcCAvc3dhcGZpbGUKZmkKc3dhcG9uIC9zd2FwZmlsZSB8fCB0cnVlCmlmICEgZ3JlcCAtcSAnXi9zd2FwZmlsZSAnIC9ldGMvZnN0YWI7IHRoZW4KICBlY2hvICcvc3dhcGZpbGUgbm9uZSBzd2FwIHN3IDAgMCcgPj4gL2V0Yy9mc3RhYgpmaQoKIyBBTDIwMjMgcmVwb3NpdG9yaWVzIHVzZSBTMyBkdWFsLXN0YWNrIGVuZHBvaW50cyByZWFjaGFibGUgb3ZlciBJUHY2Lgpmb3IgYXR0ZW1wdCBpbiAxIDIgMyA0IDU7IGRvCiAgaWYgZG5mIGluc3RhbGwgLXkgbmdpbng7IHRoZW4KICAgIGJyZWFrCiAgZmkKICBpZiBbICIkYXR0ZW1wdCIgLWVxIDUgXTsgdGhlbgogICAgZXhpdCAxCiAgZmkKICBzbGVlcCAxMApkb25lCgpUT0tFTj0kKGN1cmwgLS1mYWlsIC0tc2lsZW50IC0tc2hvdy1lcnJvciAtLW1heC10aW1lIDEwIC1YIFBVVCBcCiAgLUggJ1gtYXdzLWVjMi1tZXRhZGF0YS10b2tlbi10dGwtc2Vjb25kczogNjAnIFwKICBodHRwOi8vMTY5LjI1NC4xNjkuMjU0L2xhdGVzdC9hcGkvdG9rZW4pCklOU1RBTkNFX0lEPSQoY3VybCAtLWZhaWwgLS1zaWxlbnQgLS1zaG93LWVycm9yIC0tbWF4LXRpbWUgMTAgXAogIC1IICJYLWF3cy1lYzItbWV0YWRhdGEtdG9rZW46ICRUT0tFTiIgXAogIGh0dHA6Ly8xNjkuMjU0LjE2OS4yNTQvbGF0ZXN0L21ldGEtZGF0YS9pbnN0YW5jZS1pZCkKCmNhdCA+IC9ldGMvbmdpbngvbmdpbnguY29uZiA8PE5HSU5YCnVzZXIgbmdpbng7Cndvcmtlcl9wcm9jZXNzZXMgYXV0bzsKZXJyb3JfbG9nIC92YXIvbG9nL25naW54L2Vycm9yLmxvZyB3YXJuOwpwaWQgL3J1bi9uZ2lueC5waWQ7CmV2ZW50cyB7IHdvcmtlcl9jb25uZWN0aW9ucyAyNTY7IH0KaHR0cCB7CiAgICBpbmNsdWRlIC9ldGMvbmdpbngvbWltZS50eXBlczsKICAgIGRlZmF1bHRfdHlwZSBhcHBsaWNhdGlvbi9vY3RldC1zdHJlYW07CiAgICBhY2Nlc3NfbG9nIG9mZjsKICAgIHNlbmRmaWxlIG9uOwogICAgc2VydmVyIHsKICAgICAgICBsaXN0ZW4gODAgZGVmYXVsdF9zZXJ2ZXI7CiAgICAgICAgbGlzdGVuIFs6Ol06ODAgZGVmYXVsdF9zZXJ2ZXI7CiAgICAgICAgc2VydmVyX25hbWUgXzsKICAgICAgICByb290IC91c3Ivc2hhcmUvbmdpbngvaHRtbDsKICAgICAgICBpbmRleCBpbmRleC5odG1sOwogICAgICAgIGFkZF9oZWFkZXIgWC1XZWItSW5zdGFuY2UgIiRJTlNUQU5DRV9JRCIgYWx3YXlzOwogICAgICAgIGFkZF9oZWFkZXIgQ2FjaGUtQ29udHJvbCAibm8tc3RvcmUiIGFsd2F5czsKICAgIH0KfQpOR0lOWAoKbWtkaXIgLXAgL2V0Yy9zeXN0ZW1kL3N5c3RlbS9uZ2lueC5zZXJ2aWNlLmQKY2F0ID4gL2V0Yy9zeXN0ZW1kL3N5c3RlbS9uZ2lueC5zZXJ2aWNlLmQvcmVzdGFydC5jb25mIDw8J1NFUlZJQ0UnCltTZXJ2aWNlXQpSZXN0YXJ0PW9uLWZhaWx1cmUKUmVzdGFydFNlYz0yClNFUlZJQ0UKCm5naW54IC10CnN5c3RlbWN0bCBkYWVtb24tcmVsb2FkCnN5c3RlbWN0bCBlbmFibGUgLS1ub3cgbmdpbngK"
+
+      + block_device_mappings {
+          + device_name = "/dev/xvda"
+
+          + ebs {
+              + delete_on_termination      = "true"
+              + encrypted                  = "true"
+              + iops                       = (known after apply)
+              + throughput                 = (known after apply)
+              + volume_initialization_rate = (known after apply)
+              + volume_size                = 8
+              + volume_type                = "gp3"
+            }
+        }
+
+      + credit_specification {
+          + cpu_credits = "standard"
+        }
+
+      + metadata_options {
+          + http_endpoint               = "enabled"
+          + http_protocol_ipv6          = (known after apply)
+          + http_put_response_hop_limit = 1
+          + http_tokens                 = "required"
+          + instance_metadata_tags      = (known after apply)
+        }
+
+      + network_interfaces {
+          + delete_on_termination = "false"
+          + device_index          = 0
+          + network_interface_id  = (known after apply)
+        }
+
+      + tag_specifications {
+          + resource_type = "instance"
+          + tags          = {
+              + "Environment" = "dev"
+              + "ManagedBy"   = "Terraform"
+              + "Name"        = "auto-healing-web-tier-dev-web-a"
+              + "Project"     = "auto-healing-web-tier"
+              + "Slot"        = "a"
+            }
+        }
+      + tag_specifications {
+          + resource_type = "volume"
+          + tags          = {
+              + "Environment" = "dev"
+              + "ManagedBy"   = "Terraform"
+              + "Name"        = "auto-healing-web-tier-dev-web-a-root"
+              + "Project"     = "auto-healing-web-tier"
+            }
+        }
+    }
+
+  # module.web_tier.aws_launch_template.web["b"] will be created
+  + resource "aws_launch_template" "web" {
+      + arn             = (known after apply)
+      + default_version = (known after apply)
+      + description     = "Replacement VM for stable web slot b"
+      + id              = (known after apply)
+      + image_id        = "ami-00d2032fba650e58b"
+      + instance_type   = "t4g.nano"
+      + latest_version  = (known after apply)
+      + name            = (known after apply)
+      + name_prefix     = "auto-healing-web-tier-dev-b-"
+      + region          = "us-east-1"
+      + tags            = {
+          + "Name" = "auto-healing-web-tier-dev-web-b-lt"
+        }
+      + tags_all        = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "Terraform"
+          + "Name"        = "auto-healing-web-tier-dev-web-b-lt"
+          + "Project"     = "auto-healing-web-tier"
+        }
+      + user_data       = "IyEvYmluL2Jhc2gKc2V0IC1ldXhvIHBpcGVmYWlsCgojIHQ0Zy5uYW5vIGhhcyA1MTIgTWlCIFJBTTogY3JlYXRlIHN3YXAgYmVmb3JlIHBhY2thZ2UgaW5zdGFsbGF0aW9uLgppZiBbICEgLWYgL3N3YXBmaWxlIF07IHRoZW4KICBmYWxsb2NhdGUgLWwgMUcgL3N3YXBmaWxlCiAgY2htb2QgNjAwIC9zd2FwZmlsZQogIG1rc3dhcCAvc3dhcGZpbGUKZmkKc3dhcG9uIC9zd2FwZmlsZSB8fCB0cnVlCmlmICEgZ3JlcCAtcSAnXi9zd2FwZmlsZSAnIC9ldGMvZnN0YWI7IHRoZW4KICBlY2hvICcvc3dhcGZpbGUgbm9uZSBzd2FwIHN3IDAgMCcgPj4gL2V0Yy9mc3RhYgpmaQoKIyBBTDIwMjMgcmVwb3NpdG9yaWVzIHVzZSBTMyBkdWFsLXN0YWNrIGVuZHBvaW50cyByZWFjaGFibGUgb3ZlciBJUHY2Lgpmb3IgYXR0ZW1wdCBpbiAxIDIgMyA0IDU7IGRvCiAgaWYgZG5mIGluc3RhbGwgLXkgbmdpbng7IHRoZW4KICAgIGJyZWFrCiAgZmkKICBpZiBbICIkYXR0ZW1wdCIgLWVxIDUgXTsgdGhlbgogICAgZXhpdCAxCiAgZmkKICBzbGVlcCAxMApkb25lCgpUT0tFTj0kKGN1cmwgLS1mYWlsIC0tc2lsZW50IC0tc2hvdy1lcnJvciAtLW1heC10aW1lIDEwIC1YIFBVVCBcCiAgLUggJ1gtYXdzLWVjMi1tZXRhZGF0YS10b2tlbi10dGwtc2Vjb25kczogNjAnIFwKICBodHRwOi8vMTY5LjI1NC4xNjkuMjU0L2xhdGVzdC9hcGkvdG9rZW4pCklOU1RBTkNFX0lEPSQoY3VybCAtLWZhaWwgLS1zaWxlbnQgLS1zaG93LWVycm9yIC0tbWF4LXRpbWUgMTAgXAogIC1IICJYLWF3cy1lYzItbWV0YWRhdGEtdG9rZW46ICRUT0tFTiIgXAogIGh0dHA6Ly8xNjkuMjU0LjE2OS4yNTQvbGF0ZXN0L21ldGEtZGF0YS9pbnN0YW5jZS1pZCkKCmNhdCA+IC9ldGMvbmdpbngvbmdpbnguY29uZiA8PE5HSU5YCnVzZXIgbmdpbng7Cndvcmtlcl9wcm9jZXNzZXMgYXV0bzsKZXJyb3JfbG9nIC92YXIvbG9nL25naW54L2Vycm9yLmxvZyB3YXJuOwpwaWQgL3J1bi9uZ2lueC5waWQ7CmV2ZW50cyB7IHdvcmtlcl9jb25uZWN0aW9ucyAyNTY7IH0KaHR0cCB7CiAgICBpbmNsdWRlIC9ldGMvbmdpbngvbWltZS50eXBlczsKICAgIGRlZmF1bHRfdHlwZSBhcHBsaWNhdGlvbi9vY3RldC1zdHJlYW07CiAgICBhY2Nlc3NfbG9nIG9mZjsKICAgIHNlbmRmaWxlIG9uOwogICAgc2VydmVyIHsKICAgICAgICBsaXN0ZW4gODAgZGVmYXVsdF9zZXJ2ZXI7CiAgICAgICAgbGlzdGVuIFs6Ol06ODAgZGVmYXVsdF9zZXJ2ZXI7CiAgICAgICAgc2VydmVyX25hbWUgXzsKICAgICAgICByb290IC91c3Ivc2hhcmUvbmdpbngvaHRtbDsKICAgICAgICBpbmRleCBpbmRleC5odG1sOwogICAgICAgIGFkZF9oZWFkZXIgWC1XZWItSW5zdGFuY2UgIiRJTlNUQU5DRV9JRCIgYWx3YXlzOwogICAgICAgIGFkZF9oZWFkZXIgQ2FjaGUtQ29udHJvbCAibm8tc3RvcmUiIGFsd2F5czsKICAgIH0KfQpOR0lOWAoKbWtkaXIgLXAgL2V0Yy9zeXN0ZW1kL3N5c3RlbS9uZ2lueC5zZXJ2aWNlLmQKY2F0ID4gL2V0Yy9zeXN0ZW1kL3N5c3RlbS9uZ2lueC5zZXJ2aWNlLmQvcmVzdGFydC5jb25mIDw8J1NFUlZJQ0UnCltTZXJ2aWNlXQpSZXN0YXJ0PW9uLWZhaWx1cmUKUmVzdGFydFNlYz0yClNFUlZJQ0UKCm5naW54IC10CnN5c3RlbWN0bCBkYWVtb24tcmVsb2FkCnN5c3RlbWN0bCBlbmFibGUgLS1ub3cgbmdpbngK"
+
+      + block_device_mappings {
+          + device_name = "/dev/xvda"
+
+          + ebs {
+              + delete_on_termination      = "true"
+              + encrypted                  = "true"
+              + iops                       = (known after apply)
+              + throughput                 = (known after apply)
+              + volume_initialization_rate = (known after apply)
+              + volume_size                = 8
+              + volume_type                = "gp3"
+            }
+        }
+
+      + credit_specification {
+          + cpu_credits = "standard"
+        }
+
+      + metadata_options {
+          + http_endpoint               = "enabled"
+          + http_protocol_ipv6          = (known after apply)
+          + http_put_response_hop_limit = 1
+          + http_tokens                 = "required"
+          + instance_metadata_tags      = (known after apply)
+        }
+
+      + network_interfaces {
+          + delete_on_termination = "false"
+          + device_index          = 0
+          + network_interface_id  = (known after apply)
+        }
+
+      + tag_specifications {
+          + resource_type = "instance"
+          + tags          = {
+              + "Environment" = "dev"
+              + "ManagedBy"   = "Terraform"
+              + "Name"        = "auto-healing-web-tier-dev-web-b"
+              + "Project"     = "auto-healing-web-tier"
+              + "Slot"        = "b"
+            }
+        }
+      + tag_specifications {
+          + resource_type = "volume"
+          + tags          = {
+              + "Environment" = "dev"
+              + "ManagedBy"   = "Terraform"
+              + "Name"        = "auto-healing-web-tier-dev-web-b-root"
+              + "Project"     = "auto-healing-web-tier"
+            }
+        }
+    }
+
+  # module.web_tier.aws_security_group.web will be created
+  + resource "aws_security_group" "web" {
+      + arn                    = (known after apply)
+      + description            = "NGINX origins reachable only from CloudFront over IPv6"
+      + egress                 = (known after apply)
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = "auto-healing-web-tier-dev-web-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + region                 = "us-east-1"
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "auto-healing-web-tier-dev-web-sg"
+        }
+      + tags_all               = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "Terraform"
+          + "Name"        = "auto-healing-web-tier-dev-web-sg"
+          + "Project"     = "auto-healing-web-tier"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # module.web_tier.aws_vpc_security_group_egress_rule.ipv6 will be created
+  + resource "aws_vpc_security_group_egress_rule" "ipv6" {
+      + arn                    = (known after apply)
+      + cidr_ipv6              = "::/0"
+      + description            = "IPv6 package downloads and response traffic"
+      + id                     = (known after apply)
+      + ip_protocol            = "-1"
+      + region                 = "us-east-1"
+      + security_group_id      = (known after apply)
+      + security_group_rule_id = (known after apply)
+      + tags_all               = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "Terraform"
+          + "Project"     = "auto-healing-web-tier"
+        }
+    }
+
+  # module.web_tier.aws_vpc_security_group_ingress_rule.cloudfront_http will be created
+  + resource "aws_vpc_security_group_ingress_rule" "cloudfront_http" {
+      + arn                    = (known after apply)
+      + description            = "CloudFront IPv6 origin connections"
+      + from_port              = 80
+      + id                     = (known after apply)
+      + ip_protocol            = "tcp"
+      + prefix_list_id         = "pl-02d12e369a4312e03"
+      + region                 = "us-east-1"
+      + security_group_id      = (known after apply)
+      + security_group_rule_id = (known after apply)
+      + tags_all               = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "Terraform"
+          + "Project"     = "auto-healing-web-tier"
+        }
+      + to_port                = 80
+    }
+
+  # module.web_tier.aws_vpc_security_group_ingress_rule.ipv6_packet_too_big will be created
+  + resource "aws_vpc_security_group_ingress_rule" "ipv6_packet_too_big" {
+      + arn                    = (known after apply)
+      + cidr_ipv6              = "::/0"
+      + description            = "IPv6 path MTU discovery"
+      + from_port              = 2
+      + id                     = (known after apply)
+      + ip_protocol            = "icmpv6"
+      + region                 = "us-east-1"
+      + security_group_id      = (known after apply)
+      + security_group_rule_id = (known after apply)
+      + tags_all               = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "Terraform"
+          + "Project"     = "auto-healing-web-tier"
+        }
+      + to_port                = 0
+    }
+
+  # module.web_tier.awscc_ec2_network_interface.web["a"] will be created
+  + resource "awscc_ec2_network_interface" "web" {
+      + connection_tracking_specification         = (known after apply)
+      + description                               = "auto-healing-web-tier-dev stable web slot a"
+      + enable_primary_ipv_6                      = true
+      + group_set                                 = [
+          + (known after apply),
+        ]
+      + id                                        = (known after apply)
+      + interface_type                            = (known after apply)
+      + ipv_4_prefix_count                        = (known after apply)
+      + ipv_4_prefixes                            = (known after apply)
+      + ipv_6_address_count                       = 1
+      + ipv_6_addresses                           = (known after apply)
+      + ipv_6_prefix_count                        = (known after apply)
+      + ipv_6_prefixes                            = (known after apply)
+      + network_interface_id                      = (known after apply)
+      + primary_ipv_6_address                     = (known after apply)
+      + primary_private_ip_address                = (known after apply)
+      + private_ip_address                        = (known after apply)
+      + private_ip_addresses                      = (known after apply)
+      + public_ip_dns_hostname_type_specification = "public-ipv6-dns-name"
+      + public_ip_dns_name_options                = (known after apply)
+      + secondary_private_ip_address_count        = (known after apply)
+      + secondary_private_ip_addresses            = (known after apply)
+      + source_dest_check                         = (known after apply)
+      + subnet_id                                 = (known after apply)
+      + tags                                      = [
+          + {
+              + key   = "Environment"
+              + value = "dev"
+            },
+          + {
+              + key   = "ManagedBy"
+              + value = "Terraform"
+            },
+          + {
+              + key   = "Name"
+              + value = "auto-healing-web-tier-dev-web-a-eni"
+            },
+          + {
+              + key   = "Project"
+              + value = "auto-healing-web-tier"
+            },
+        ]
+      + vpc_id                                    = (known after apply)
+    }
+
+  # module.web_tier.awscc_ec2_network_interface.web["b"] will be created
+  + resource "awscc_ec2_network_interface" "web" {
+      + connection_tracking_specification         = (known after apply)
+      + description                               = "auto-healing-web-tier-dev stable web slot b"
+      + enable_primary_ipv_6                      = true
+      + group_set                                 = [
+          + (known after apply),
+        ]
+      + id                                        = (known after apply)
+      + interface_type                            = (known after apply)
+      + ipv_4_prefix_count                        = (known after apply)
+      + ipv_4_prefixes                            = (known after apply)
+      + ipv_6_address_count                       = 1
+      + ipv_6_addresses                           = (known after apply)
+      + ipv_6_prefix_count                        = (known after apply)
+      + ipv_6_prefixes                            = (known after apply)
+      + network_interface_id                      = (known after apply)
+      + primary_ipv_6_address                     = (known after apply)
+      + primary_private_ip_address                = (known after apply)
+      + private_ip_address                        = (known after apply)
+      + private_ip_addresses                      = (known after apply)
+      + public_ip_dns_hostname_type_specification = "public-ipv6-dns-name"
+      + public_ip_dns_name_options                = (known after apply)
+      + secondary_private_ip_address_count        = (known after apply)
+      + secondary_private_ip_addresses            = (known after apply)
+      + source_dest_check                         = (known after apply)
+      + subnet_id                                 = (known after apply)
+      + tags                                      = [
+          + {
+              + key   = "Environment"
+              + value = "dev"
+            },
+          + {
+              + key   = "ManagedBy"
+              + value = "Terraform"
+            },
+          + {
+              + key   = "Name"
+              + value = "auto-healing-web-tier-dev-web-b-eni"
+            },
+          + {
+              + key   = "Project"
+              + value = "auto-healing-web-tier"
+            },
+        ]
+      + vpc_id                                    = (known after apply)
+    }
+
+Plan: 20 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + autoscaling_group_names = {
+      + a = "auto-healing-web-tier-dev-web-a-asg"
+      + b = "auto-healing-web-tier-dev-web-b-asg"
+    }
+  + network_interface_ids   = {
+      + a = (known after apply)
+      + b = (known after apply)
+    }
+  + origin_dns_names        = {
+      + a = (known after apply)
+      + b = (known after apply)
+    }
+  + vpc_id                  = (known after apply)
+  + website_url             = (known after apply)
